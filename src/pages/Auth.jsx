@@ -32,7 +32,7 @@ export default function Auth() {
       <div className="absolute bottom-[-150px] right-[-100px] w-[350px] h-[350px] bg-purple-500/10 blur-[120px] rounded-full pointer-events-none" />
 
       {/* Logo */}
-      <Link to="/" className="flex items-center gap-2 mb-8 relative z-10">
+      {/* <Link to="/" className="flex items-center gap-2 mb-8 relative z-10">
         <div className="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center">
           <Wifi size={23} />
         </div>
@@ -40,7 +40,7 @@ export default function Auth() {
         <span className="text-2xl font-bold">
           eSIM<span className="text-purple-400">ly</span>
         </span>
-      </Link>
+      </Link> */}
 
       {/* Authentication card */}
       <div className="relative z-10 w-full max-w-md bg-[#17141F] border border-white/10 rounded-3xl p-6 sm:p-9 shadow-2xl">
