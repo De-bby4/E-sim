@@ -25,6 +25,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/my-esims" element={<MyEsims />} />
         <Route path="/order-history" element={<OrderHistory />} />
+        <Route path="/onboarding" element={<Onboarding/>} />
       </Routes>
     </BrowserRouter>
   );
