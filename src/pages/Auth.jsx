@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -96,7 +95,7 @@ export default function Auth() {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5 text-left">
 
           {/* Full name */}
           {!isLogin && (
@@ -111,11 +110,13 @@ export default function Auth() {
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
                 />
 
+                {/* text-base (16px) stops iPhone Safari from zooming in on focus */}
                 <input
                   type="text"
+                  autoComplete="name"
                   placeholder="Enter your full name"
                   required
-                  className="w-full bg-[#0B0B0F] border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none focus:border-purple-500 transition placeholder:text-gray-600"
+                  className="w-full bg-[#0B0B0F] border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-base sm:text-sm outline-none focus:border-purple-500 transition placeholder:text-gray-600"
                 />
               </div>
             </div>
@@ -135,9 +136,10 @@ export default function Auth() {
 
               <input
                 type="email"
+                autoComplete="email"
                 placeholder="you@example.com"
                 required
-                className="w-full bg-[#0B0B0F] border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none focus:border-purple-500 transition placeholder:text-gray-600"
+                className="w-full bg-[#0B0B0F] border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-base sm:text-sm outline-none focus:border-purple-500 transition placeholder:text-gray-600"
               />
             </div>
           </div>
@@ -167,10 +169,11 @@ export default function Auth() {
 
               <input
                 type={showPassword ? "text" : "password"}
+                autoComplete={isLogin ? "current-password" : "new-password"}
                 placeholder="Enter your password"
                 required
                 minLength={6}
-                className="w-full bg-[#0B0B0F] border border-white/10 rounded-xl py-3.5 pl-12 pr-12 text-sm outline-none focus:border-purple-500 transition placeholder:text-gray-600"
+                className="w-full bg-[#0B0B0F] border border-white/10 rounded-xl py-3.5 pl-12 pr-12 text-base sm:text-sm outline-none focus:border-purple-500 transition placeholder:text-gray-600"
               />
 
               <button
@@ -240,7 +243,9 @@ export default function Auth() {
             type="button"
             className="border border-white/10 rounded-xl py-3 flex items-center justify-center gap-2 hover:bg-white/5 transition text-sm"
           >
-            <span className="font-bold text-lg"></span>
+            <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" aria-hidden="true">
+              <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" />
+            </svg>
             Apple
           </button>
         </div>
