@@ -169,7 +169,7 @@ export default function Onboarding() {
       </main>
 
       {/* Bottom controls */}
-      <footer className="relative z-10 w-full max-w-md shrink-0 px-6 pt-4 pb-[max(3.5rem,env(safe-area-inset-bottom))] flex flex-col items-center gap-5">
+      <footer className="relative z-10 w-full max-w-md shrink-0 px-6 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] flex flex-col items-center gap-5">
         {/* Progress dots */}
         <div className="flex items-center justify-center gap-2">
           {slides.map((_, index) => (
