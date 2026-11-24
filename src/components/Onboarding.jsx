@@ -1,3 +1,4 @@
+
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -153,7 +154,7 @@ const slides = [
     description:
       "Stay connected wherever you go. Enjoy seamless internet access across the world without the hassle of physical SIM cards.",
     Visual: GlobeVisual,
-    badges: [Wifi, MapPin], // top-right, bottom-left
+    badges: [Wifi, MapPin],
   },
   {
     tag: "Travel without limits",
@@ -357,9 +358,9 @@ export default function Onboarding() {
       <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 w-[460px] h-[460px] bg-purple-500/15 blur-[130px] rounded-full pointer-events-none" />
 
       {/* Top bar */}
-      <header className="relative z-10 w-full max-w-md shrink-0 flex items-center justify-between px-6 pt-5">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg shadow-purple-600/30 ring-1 ring-white/10">
+      <header className="relative z-10 w-full max-w-md shrink-0 flex items-center justify-between gap-2 px-4 sm:px-6 pt-[max(0.75rem,env(safe-area-inset-top))]">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="w-9 h-9 shrink-0 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg shadow-purple-600/30 ring-1 ring-white/10">
             <Wifi size={19} />
           </div>
 
@@ -368,12 +369,7 @@ export default function Onboarding() {
           </span>
         </div>
 
-        <div className="flex items-center gap-1 -mr-3">
-          <span className="text-xs font-medium tabular-nums text-gray-400 mr-1">
-            {String(currentSlide + 1).padStart(2, "0")}
-            <span className="text-gray-600"> / {String(slides.length).padStart(2, "0")}</span>
-          </span>
-
+        <div className="flex items-center gap-1 -mr-2 sm:-mr-3">
           {!isLast ? (
             <button
               onClick={finishOnboarding}
@@ -382,19 +378,19 @@ export default function Onboarding() {
               Skip
             </button>
           ) : (
-            <span className="w-14" />
+            <span className="w-10" />
           )}
         </div>
       </header>
 
-      {/* Content: key remounts everything on each slide, so all the entrance animations replay */}
+      {/* Content */}
       <main
         key={currentSlide}
-        className="onboard-fade relative z-10 flex-1 min-h-0 w-full max-w-md px-6 flex flex-col"
+        className="onboard-fade relative z-10 flex-1 min-h-0 w-full max-w-md px-4 sm:px-6 flex flex-col"
       >
-        {/* Illustration area (centered in the free space) */}
-        <div className="flex-1 min-h-0 flex items-center justify-center">
-          <div className="relative shrink-0 w-[min(80vw,38vh,340px)] aspect-square flex items-center justify-center">
+        {/* Illustration area */}
+        <div className="flex-1 min-h-0 flex items-center justify-center py-1">
+          <div className="relative shrink-0 w-[min(76vw,32dvh,300px)] max-h-full aspect-square flex items-center justify-center">
             {/* soft pulsing glow behind everything */}
             <div className="onboard-glow absolute inset-[4%] rounded-full bg-purple-600/40 blur-3xl" />
 
@@ -417,12 +413,12 @@ export default function Onboarding() {
               <Visual />
             </div>
 
-            {/* glass badges: outer div pops in, inner div floats */}
+            {/* glass badges */}
             <div
               className="onboard-pop-in absolute top-[6%] right-[0%]"
               style={{ animationDelay: "350ms" }}
             >
-              <div className="onboard-float bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-3 shadow-xl shadow-black/30">
+              <div className="onboard-float bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-2.5 sm:p-3 shadow-xl shadow-black/30">
                 <BadgeA className="text-purple-200" size={20} />
               </div>
             </div>
@@ -431,7 +427,7 @@ export default function Onboarding() {
               className="onboard-pop-in absolute bottom-[6%] left-[0%]"
               style={{ animationDelay: "500ms" }}
             >
-              <div className="onboard-float-alt bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-3 shadow-xl shadow-black/30">
+              <div className="onboard-float-alt bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-2.5 sm:p-3 shadow-xl shadow-black/30">
                 <BadgeB className="text-purple-200" size={20} />
               </div>
             </div>
@@ -450,24 +446,24 @@ export default function Onboarding() {
           </div>
         </div>
 
-        {/* Text: rises in one line after the other */}
-        <div className="shrink-0 flex flex-col items-center pt-2 pb-1">
+        {/* Text */}
+        <div className="shrink-0 flex flex-col items-center pt-2 pb-2">
           <p
-            className="onboard-rise text-[11px] font-semibold uppercase tracking-[0.28em] text-purple-300 mb-3"
+            className="onboard-rise text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-purple-300 mb-2 sm:mb-3"
             style={{ animationDelay: "200ms" }}
           >
             {slide.tag}
           </p>
 
           <h1
-            className="onboard-rise text-3xl sm:text-4xl font-bold leading-[1.15] tracking-tight mb-3 text-balance"
+            className="onboard-rise text-[clamp(1.65rem,5.5vw,2.5rem)] font-bold leading-[1.12] tracking-tight mb-2 sm:mb-3 text-balance"
             style={{ animationDelay: "280ms" }}
           >
             {slide.title}
           </h1>
 
           <p
-            className="onboard-rise text-gray-300/80 text-sm sm:text-[15px] leading-relaxed max-w-sm text-balance"
+            className="onboard-rise text-gray-300/80 text-[clamp(0.8rem,2.5vw,0.95rem)] leading-relaxed max-w-sm text-balance"
             style={{ animationDelay: "360ms" }}
           >
             {slide.description}
@@ -476,7 +472,7 @@ export default function Onboarding() {
       </main>
 
       {/* Bottom controls */}
-      <footer className="relative z-10 w-full max-w-md shrink-0 px-6 pt-6 pb-[max(2.75rem,calc(env(safe-area-inset-bottom)+1.5rem))] flex flex-col items-center gap-6">
+      <footer className="relative z-10 w-full max-w-md shrink-0 px-4 sm:px-6 pt-3 sm:pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] flex flex-col items-center gap-4">
         {/* Progress dots */}
         <div className="flex items-center justify-center gap-2">
           {slides.map((_, index) => (
@@ -498,7 +494,7 @@ export default function Onboarding() {
           {currentSlide > 0 && (
             <button
               onClick={previousSlide}
-              className="w-14 h-14 shrink-0 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center hover:bg-white/[0.1] active:scale-95 transition"
+              className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center hover:bg-white/[0.1] active:scale-95 transition"
               aria-label="Previous slide"
             >
               <ArrowLeft size={20} />
@@ -507,7 +503,7 @@ export default function Onboarding() {
 
           <button
             onClick={nextSlide}
-            className="group flex-1 h-14 rounded-2xl bg-gradient-to-b from-purple-500 to-purple-700 hover:from-purple-400 hover:to-purple-600 ring-1 ring-white/15 flex items-center justify-center gap-2.5 font-semibold active:scale-[0.98] transition-all duration-300 shadow-lg shadow-purple-600/40"
+            className="group flex-1 h-12 sm:h-14 rounded-2xl bg-gradient-to-b from-purple-500 to-purple-700 hover:from-purple-400 hover:to-purple-600 ring-1 ring-white/15 flex items-center justify-center gap-2.5 font-semibold active:scale-[0.98] transition-all duration-300 shadow-lg shadow-purple-600/40"
           >
             {isLast ? "Get Started" : "Continue"}
             <ArrowRight
