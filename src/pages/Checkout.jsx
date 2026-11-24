@@ -12,6 +12,35 @@ import {
 } from "lucide-react";
 import BottomNav from "../components/BottomNav";
 
+const inputClass =
+  "w-full rounded-xl border border-white/10 bg-[#0B0B0F] px-4 py-3 text-sm text-white outline-none transition placeholder:text-gray-600 focus:border-purple-500";
+
+function Field({ label, name, placeholder, icon: Icon, type = "text", form, handleChange, errors }) {
+  return (
+    <div>
+      <label className="mb-2 block text-sm font-medium text-gray-300">
+        {label}
+      </label>
+      <div className="relative">
+        {Icon && (
+          <Icon size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+        )}
+        <input
+          type={type}
+          name={name}
+          value={form[name]}
+          onChange={handleChange}
+          placeholder={placeholder}
+          className={`${inputClass} ${Icon ? "pl-11" : ""}`}
+        />
+      </div>
+      {errors[name] && (
+        <p className="mt-1 text-xs text-red-400">{errors[name]}</p>
+      )}
+    </div>
+  );
+}
+
 function Checkout() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -69,32 +98,7 @@ function Checkout() {
     }
   };
 
-  const inputClass =
-    "w-full rounded-xl border border-white/10 bg-[#0B0B0F] px-4 py-3 text-sm text-white outline-none transition placeholder:text-gray-600 focus:border-purple-500";
-
-  const Field = ({ label, name, placeholder, icon: Icon, type = "text" }) => (
-    <div>
-      <label className="mb-2 block text-sm font-medium text-gray-300">
-        {label}
-      </label>
-      <div className="relative">
-        {Icon && (
-          <Icon size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
-        )}
-        <input
-          type={type}
-          name={name}
-          value={form[name]}
-          onChange={handleChange}
-          placeholder={placeholder}
-          className={`${inputClass} ${Icon ? "pl-11" : ""}`}
-        />
-      </div>
-      {errors[name] && (
-        <p className="mt-1 text-xs text-red-400">{errors[name]}</p>
-      )}
-    </div>
-  );
+  const fieldProps = { form, handleChange, errors };
 
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-white">
@@ -134,9 +138,9 @@ function Checkout() {
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Full name" name="fullName" placeholder="Enter your full name" icon={UserRound} />
-                <Field label="Email address" name="email" placeholder="you@example.com" icon={Mail} type="email" />
-                <Field label="WhatsApp number" name="phone" placeholder="+234 800 000 0000" icon={Smartphone} />
+                <Field label="Full name" name="fullName" placeholder="Enter your full name" icon={UserRound} {...fieldProps} />
+                <Field label="Email address" name="email" placeholder="you@example.com" icon={Mail} type="email" {...fieldProps} />
+                <Field label="WhatsApp number" name="phone" placeholder="+234 800 000 0000" icon={Smartphone} {...fieldProps} />
               </div>
             </div>
 
@@ -152,13 +156,13 @@ function Checkout() {
               </div>
 
               <div className="mb-5 grid gap-5 sm:grid-cols-2">
-                <Field label="Device brand" name="device" placeholder="e.g. Apple, Samsung" />
-                <Field label="Phone model" name="model" placeholder="e.g. iPhone 15 Pro" />
+                <Field label="Device brand" name="device" placeholder="e.g. Apple, Samsung" {...fieldProps} />
+                <Field label="Phone model" name="model" placeholder="e.g. iPhone 15 Pro" {...fieldProps} />
               </div>
 
               <div className="space-y-5">
-                <Field label="IMEI (15 digits)" name="imei" placeholder="Enter your IMEI" />
-                <Field label="EID (32 digits)" name="eid" placeholder="Enter your EID" />
+                <Field label="IMEI (15 digits)" name="imei" placeholder="Enter your IMEI" {...fieldProps} />
+                <Field label="EID (32 digits)" name="eid" placeholder="Enter your EID" {...fieldProps} />
               </div>
 
               <div className="mt-5 rounded-xl border border-purple-500/20 bg-purple-500/10 p-4">
