@@ -1,5 +1,6 @@
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Onboarding from "./components/Onboarding";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
@@ -11,9 +12,20 @@ import AdminDashboard from "./pages/Admindashoard";
 import MyEsims from "./pages/MyEsims";
 import OrderHistory from "./pages/OrderHistory";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Onboarding />} />
         <Route path="/auth" element={<Auth />} />
