@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -15,7 +14,7 @@ import {
   Cpu,
 } from "lucide-react";
 
-/* ---------- Center illustrations (drawn, one per slide) */
+/* ---------- Center illustrations (drawn, one per slide) ---------- */
 
 // Slide 1: wireframe globe that slowly "turns", pins pop in one by one
 function GlobeVisual() {
@@ -109,36 +108,37 @@ function PlaneVisual() {
   );
 }
 
-// Slide 3: phone slides up, signal bars fill in, eSIM turns active
+// Slide 3: phone slides up, signal bars fill in, eSIM turns active.
+// Inner sizes grow on large screens (lg:) so it stays in proportion with the bigger circle.
 function PhoneVisual() {
   return (
     <div className="onboard-slide-up absolute inset-0 flex items-center justify-center">
-      <div className="onboard-float relative w-[40%] aspect-[9/17] rounded-[1.1rem] border-2 border-white/45 bg-gradient-to-b from-[#1d1236] to-[#33196a] shadow-[0_12px_30px_rgba(0,0,0,0.45)] flex flex-col items-center justify-center gap-2.5">
+      <div className="onboard-float relative w-[40%] aspect-[9/17] rounded-[1.1rem] border-2 border-white/45 bg-gradient-to-b from-[#1d1236] to-[#33196a] shadow-[0_12px_30px_rgba(0,0,0,0.45)] flex flex-col items-center justify-center gap-2.5 lg:gap-4">
         {/* notch */}
-        <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-5 h-1 rounded-full bg-white/30" />
+        <div className="absolute top-1.5 lg:top-2.5 left-1/2 -translate-x-1/2 w-5 h-1 lg:w-8 lg:h-1.5 rounded-full bg-white/30" />
 
         {/* eSIM chip (glows softly) */}
-        <div className="onboard-chip w-9 h-9 rounded-xl bg-purple-400/30 border border-purple-200/40 flex items-center justify-center">
-          <Cpu size={20} className="text-purple-100" />
+        <div className="onboard-chip w-9 h-9 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-purple-400/30 border border-purple-200/40 flex items-center justify-center">
+          <Cpu className="w-5 h-5 lg:w-8 lg:h-8 text-purple-100" />
         </div>
 
         {/* signal bars grow one after the other */}
-        <div className="flex items-end gap-[3px] h-4">
-          {[6, 10, 12, 16].map((h, i) => (
+        <div className="flex items-end gap-[3px] lg:gap-1 h-4 lg:h-7">
+          {[38, 62, 78, 100].map((pct, i) => (
             <span
-              key={h}
-              className="onboard-bar w-[3px] rounded-sm bg-white/90"
-              style={{ height: `${h}px`, animationDelay: `${0.7 + i * 0.12}s` }}
+              key={pct}
+              className="onboard-bar w-[3px] lg:w-1 rounded-sm bg-white/90"
+              style={{ height: `${pct}%`, animationDelay: `${0.7 + i * 0.12}s` }}
             />
           ))}
         </div>
 
         {/* active tick pops in last */}
         <div
-          className="onboard-pop-in w-5 h-5 rounded-full bg-emerald-400 flex items-center justify-center shadow-[0_0_12px_rgba(52,211,153,0.7)]"
+          className="onboard-pop-in w-5 h-5 lg:w-8 lg:h-8 rounded-full bg-emerald-400 flex items-center justify-center shadow-[0_0_12px_rgba(52,211,153,0.7)]"
           style={{ animationDelay: "1.3s" }}
         >
-          <Check size={13} className="text-[#0B0B0F]" strokeWidth={3} />
+          <Check className="w-3 h-3 lg:w-5 lg:h-5 text-[#0B0B0F]" strokeWidth={3} />
         </div>
       </div>
     </div>
@@ -354,31 +354,26 @@ export default function Onboarding() {
       />
 
       {/* Background glow */}
-      <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[520px] h-[520px] bg-purple-700/30 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[520px] h-[520px] lg:w-[760px] lg:h-[760px] bg-purple-700/30 blur-[130px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 w-[460px] h-[460px] bg-purple-500/15 blur-[130px] rounded-full pointer-events-none" />
 
       {/* Top bar */}
-      <header className="relative z-10 w-full max-w-md shrink-0 flex items-center justify-between px-6 pt-5">
+      <header className="relative z-10 w-full max-w-md lg:max-w-6xl shrink-0 flex items-center justify-between px-6 lg:px-16 pt-5 lg:pt-8">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg shadow-purple-600/30 ring-1 ring-white/10">
+          <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg shadow-purple-600/30 ring-1 ring-white/10">
             <Wifi size={19} />
           </div>
 
-          <span className="text-xl font-bold tracking-tight">
+          <span className="text-xl lg:text-2xl font-bold tracking-tight">
             eSIM<span className="text-purple-400">ly</span>
           </span>
         </div>
 
         <div className="flex items-center gap-1 -mr-3">
-          {/* <span className="text-xs font-medium tabular-nums text-gray-400 mr-1">
-            {String(currentSlide + 1).padStart(2, "0")}
-            <span className="text-gray-600"> / {String(slides.length).padStart(2, "0")}</span>
-          </span> */}
-
           {!isLast ? (
             <button
               onClick={finishOnboarding}
-              className="text-sm font-medium text-gray-300 hover:text-white transition px-3 py-2"
+              className="text-sm lg:text-base font-medium text-gray-300 hover:text-white transition px-3 py-2"
             >
               Skip
             </button>
@@ -388,14 +383,18 @@ export default function Onboarding() {
         </div>
       </header>
 
-      {/* Content */}
-      <main
-        key={currentSlide}
-        className="onboard-fade relative z-10 flex-1 min-h-0 w-full max-w-md px-6 flex flex-col"
-      >
-        {/* Illustration area */}
-        <div className="flex-[0.85] min-h-0 flex items-center justify-center">
-          <div className="relative shrink-0 w-[min(72vw,32vh,300px)] aspect-square flex items-center justify-center">
+      {/*
+        Mobile / tablet: one centered column  (illustration, text, controls)
+        Desktop (lg+):   two columns          (text + controls on the left, illustration on the right)
+      */}
+      <main className="relative z-10 flex-1 min-h-0 w-full max-w-md md:max-w-lg lg:max-w-6xl px-6 lg:px-16 flex flex-col lg:grid lg:grid-cols-2 lg:grid-rows-[auto_auto] lg:content-center lg:gap-x-16">
+
+        {/* Illustration */}
+        <div
+          key={`art-${currentSlide}`}
+          className="onboard-fade flex-1 min-h-0 flex items-center justify-center lg:flex-none lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center"
+        >
+          <div className="relative shrink-0 w-[min(72vw,34vh,300px)] md:w-[min(60vw,38vh,380px)] lg:w-[min(38vw,62vh,540px)] aspect-square flex items-center justify-center">
             {/* soft pulsing glow behind everything */}
             <div className="onboard-glow absolute inset-[4%] rounded-full bg-purple-600/40 blur-3xl" />
 
@@ -423,8 +422,8 @@ export default function Onboarding() {
               className="onboard-pop-in absolute top-[6%] right-[0%]"
               style={{ animationDelay: "350ms" }}
             >
-              <div className="onboard-float bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-3 shadow-xl shadow-black/30">
-                <BadgeA className="text-purple-200" size={20} />
+              <div className="onboard-float bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-3 lg:p-4 shadow-xl shadow-black/30">
+                <BadgeA className="w-5 h-5 lg:w-7 lg:h-7 text-purple-200" />
               </div>
             </div>
 
@@ -432,92 +431,99 @@ export default function Onboarding() {
               className="onboard-pop-in absolute bottom-[6%] left-[0%]"
               style={{ animationDelay: "500ms" }}
             >
-              <div className="onboard-float-alt bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-3 shadow-xl shadow-black/30">
-                <BadgeB className="text-purple-200" size={20} />
+              <div className="onboard-float-alt bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-3 lg:p-4 shadow-xl shadow-black/30">
+                <BadgeB className="w-5 h-5 lg:w-7 lg:h-7 text-purple-200" />
               </div>
             </div>
 
             {/* twinkling sparkles */}
             <div className="onboard-twinkle absolute top-[10%] left-[8%] text-purple-200/80">
-              <Sparkles size={18} />
+              <Sparkles className="w-[18px] h-[18px] lg:w-6 lg:h-6" />
             </div>
 
             <div
               className="onboard-twinkle absolute bottom-[10%] right-[8%] text-purple-200/70"
               style={{ animationDelay: "1.2s" }}
             >
-              <Sparkles size={13} />
+              <Sparkles className="w-[13px] h-[13px] lg:w-[18px] lg:h-[18px]" />
             </div>
           </div>
         </div>
 
         {/* Text */}
-        <div className="shrink-0 flex flex-col items-center pt-2 pb-2 translate-y-16">
+        <div
+          key={`text-${currentSlide}`}
+          className="shrink-0 flex flex-col items-center pt-3 pb-1 lg:col-start-1 lg:row-start-1 lg:items-start lg:text-left lg:self-end lg:pt-0 lg:pb-0"
+        >
           <p
-            className="onboard-rise text-[11px] font-semibold uppercase tracking-[0.28em] text-purple-300 mb-3"
+            className="onboard-rise text-[11px] lg:text-xs font-semibold uppercase tracking-[0.28em] text-purple-300 mb-3 lg:mb-5"
             style={{ animationDelay: "200ms" }}
           >
             {slide.tag}
           </p>
 
           <h1
-            className="onboard-rise text-3xl sm:text-4xl font-bold leading-[1.15] tracking-tight mb-3"
+            className="onboard-rise text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.12] tracking-tight mb-3 lg:mb-5"
             style={{ animationDelay: "280ms" }}
           >
             {slide.title}
           </h1>
 
+          {/* hidden on very short screens so nothing gets squeezed */}
           <p
-            className="onboard-rise text-gray-300/80 text-sm sm:text-[15px] leading-relaxed max-w-sm"
+            className="onboard-rise text-gray-300/80 text-sm md:text-base lg:text-lg leading-relaxed max-w-sm md:max-w-md lg:max-w-lg [@media(max-height:600px)]:hidden"
             style={{ animationDelay: "360ms" }}
           >
             {slide.description}
           </p>
         </div>
+
+        {/* Controls */}
+        <div className="shrink-0 w-full flex flex-col items-center gap-5 pt-5 pb-[max(2.5rem,calc(env(safe-area-inset-bottom)+1.25rem))] lg:col-start-1 lg:row-start-2 lg:self-start lg:items-start lg:gap-8 lg:pt-10 lg:pb-0">
+          {/* Progress dots */}
+          <div className="flex items-center justify-center gap-2">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  currentSlide === index
+                    ? "w-9 bg-gradient-to-r from-purple-300 to-purple-500"
+                    : "w-1.5 bg-white/20 hover:bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Buttons */}
+          <div className="w-full lg:w-auto flex items-center gap-3">
+            {currentSlide > 0 && (
+              <button
+                onClick={previousSlide}
+                className="w-14 h-14 shrink-0 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center hover:bg-white/[0.1] active:scale-95 transition"
+                aria-label="Previous slide"
+              >
+                <ArrowLeft size={20} />
+              </button>
+            )}
+
+            <button
+              onClick={nextSlide}
+              className="group flex-1 lg:flex-none lg:w-60 h-14 rounded-2xl bg-gradient-to-b from-purple-500 to-purple-700 hover:from-purple-400 hover:to-purple-600 ring-1 ring-white/15 flex items-center justify-center gap-2.5 font-semibold active:scale-[0.98] transition-all duration-300 shadow-lg shadow-purple-600/40"
+            >
+              {isLast ? "Get Started" : "Continue"}
+              <ArrowRight
+                size={19}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </button>
+          </div>
+        </div>
       </main>
 
-      {/* Bottom controls */}
-      <footer className="relative z-10 w-full max-w-md shrink-0 px-6 pt-4 pb-[max(3rem,calc(env(safe-area-inset-bottom)+1.5rem))] flex flex-col items-center gap-4 -translate-y-3">
-        {/* Progress dots */}
-        <div className="flex items-center justify-center gap-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                currentSlide === index
-                  ? "w-9 bg-gradient-to-r from-purple-300 to-purple-500"
-                  : "w-1.5 bg-white/20 hover:bg-white/40"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Buttons */}
-        <div className="w-full flex items-center gap-3">
-          {currentSlide > 0 && (
-            <button
-              onClick={previousSlide}
-              className="w-14 h-14 shrink-0 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center hover:bg-white/[0.1] active:scale-95 transition"
-              aria-label="Previous slide"
-            >
-              <ArrowLeft size={20} />
-            </button>
-          )}
-
-          <button
-            onClick={nextSlide}
-            className="group flex-1 h-14 rounded-2xl bg-gradient-to-b from-purple-500 to-purple-700 hover:from-purple-400 hover:to-purple-600 ring-1 ring-white/15 flex items-center justify-center gap-2.5 font-semibold active:scale-[0.98] transition-all duration-300 shadow-lg shadow-purple-600/40"
-          >
-            {isLast ? "Get Started" : "Continue"}
-            <ArrowRight
-              size={19}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </button>
-        </div>
-      </footer>
+      {/* Bottom breathing room on desktop */}
+      <div className="hidden lg:block h-10 shrink-0" />
     </div>
   );
 }
